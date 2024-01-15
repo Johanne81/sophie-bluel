@@ -1,5 +1,20 @@
 fetch("http://localhost:5678/api/works")
   .then((reponse) => reponse.json())
   .then((data) => {
-    console.log(data);
+    // Ajouter les éléments récupérés à la galerie
+    const gallery = document.querySelector(".gallery");
+
+    data.forEach((work) => {
+      const figure = document.createElement("figure");
+      const img = document.createElement("img");
+      const figcaption = document.createElement("figcaption");
+
+      img.src = work.imageUrl;
+      img.alt = work.title;
+      figcaption.textContent = work.title;
+
+      figure.appendChild(img);
+      figure.appendChild(figcaption);
+      gallery.appendChild(figure);
+    });
   });
