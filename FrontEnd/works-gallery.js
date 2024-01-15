@@ -1,9 +1,9 @@
+const gallery = document.querySelector(".gallery");
+
 fetch("http://localhost:5678/api/works")
   .then((reponse) => reponse.json())
   .then((data) => {
     // Ajouter les éléments récupérés à la galerie
-    const gallery = document.querySelector(".gallery");
-
     data.forEach((work) => {
       const figure = document.createElement("figure");
       const img = document.createElement("img");
