@@ -1,5 +1,8 @@
+// Supprimer les travaux existants du HTML
 const gallery = document.querySelector(".gallery");
+gallery.innerHTML = "";
 
+// Récupération des travaux sur l'API
 fetch("http://localhost:5678/api/works")
   .then((reponse) => reponse.json())
   .then((data) => {
