@@ -4,6 +4,13 @@ const categories = document.querySelector(".categories");
 fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categoriesData) => {
+    // Créer le boutton "Tous"
+    const allButton = document.createElement("button");
+    allButton.textContent = "Tous";
+    allButton.dataset.categoryId = "all";
+
+    categories.appendChild(allButton);
+
     // Créer les bouttons pour chaque catégorie
     categoriesData.forEach((category) => {
       const button = document.createElement("button");
