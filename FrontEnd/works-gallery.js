@@ -1,3 +1,8 @@
+const categories = document.querySelector(".categories");
+
+// Récupération des catégories sur l'API
+fetch("http://localhost:5678/api/categories").then((reponse) => reponse.json());
+
 // Supprimer les travaux existants du HTML
 const gallery = document.querySelector(".gallery");
 gallery.innerHTML = "";
