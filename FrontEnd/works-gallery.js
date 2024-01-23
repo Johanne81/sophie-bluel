@@ -1,7 +1,18 @@
+// Récupération des catégories sur l'API
 const categories = document.querySelector(".categories");
 
-// Récupération des catégories sur l'API
-fetch("http://localhost:5678/api/categories").then((reponse) => reponse.json());
+fetch("http://localhost:5678/api/categories")
+  .then((response) => response.json())
+  .then((categoriesData) => {
+    // Créer les bouttons pour chaque catégorie
+    categoriesData.forEach((category) => {
+      const button = document.createElement("button");
+      button.textContent = category.name;
+      button.dataset.categoryId = category.id;
+
+      categories.appendChild(button);
+    });
+  });
 
 // Supprimer les travaux existants du HTML
 const gallery = document.querySelector(".gallery");
@@ -10,9 +21,9 @@ gallery.innerHTML = "";
 // Récupération des travaux sur l'API
 fetch("http://localhost:5678/api/works")
   .then((reponse) => reponse.json())
-  .then((data) => {
+  .then((worksData) => {
     // Ajouter les éléments récupérés à la galerie
-    data.forEach((work) => {
+    worksData.forEach((work) => {
       const figure = document.createElement("figure");
       const img = document.createElement("img");
       const figcaption = document.createElement("figcaption");
