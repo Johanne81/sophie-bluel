@@ -5,17 +5,19 @@ fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categoriesData) => {
     // Créer le boutton "Tous"
-    const allButton = document.createElement("button");
+    const allButton = document.createElement("div");
     allButton.textContent = "Tous";
     allButton.dataset.categoryId = "all";
+    allButton.classList.add("filter-btn");
 
     categories.appendChild(allButton);
 
     // Créer les bouttons pour chaque catégorie
     categoriesData.forEach((category) => {
-      const button = document.createElement("button");
+      const button = document.createElement("div");
       button.textContent = category.name;
       button.dataset.categoryId = category.id;
+      button.classList.add("filter-btn");
 
       categories.appendChild(button);
     });
