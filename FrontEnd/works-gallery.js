@@ -9,6 +9,9 @@ fetch("http://localhost:5678/api/categories")
     allButton.textContent = "Tous";
     allButton.dataset.categoryId = "all";
     allButton.classList.add("filter-btn");
+    allButton.addEventListener("click", (e) => {
+      console.log(e.target.dataset.categoryId);
+    });
 
     categories.appendChild(allButton);
 
@@ -18,7 +21,9 @@ fetch("http://localhost:5678/api/categories")
       button.textContent = category.name;
       button.dataset.categoryId = category.id;
       button.classList.add("filter-btn");
-
+      button.addEventListener("click", (e) => {
+        console.log(e.target.dataset.categoryId);
+      });
       categories.appendChild(button);
     });
   });
