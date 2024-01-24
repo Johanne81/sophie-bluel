@@ -1,6 +1,6 @@
-// Récupération des catégories sur l'API
 const categories = document.querySelector(".categories");
 
+// Récupération des catégories sur l'API
 fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categoriesData) => {
@@ -9,8 +9,11 @@ fetch("http://localhost:5678/api/categories")
     allButton.textContent = "Tous";
     allButton.dataset.categoryId = "all";
     allButton.classList.add("filter-btn");
+    allButton.classList.add("selected");
     allButton.addEventListener("click", (e) => {
-      console.log(e.target.dataset.categoryId);
+      let categoryId = e.target.dataset.categoryId;
+      let clickedButton = e.target;
+      applyFilter(categoryId, clickedButton);
     });
 
     categories.appendChild(allButton);
@@ -22,11 +25,36 @@ fetch("http://localhost:5678/api/categories")
       button.dataset.categoryId = category.id;
       button.classList.add("filter-btn");
       button.addEventListener("click", (e) => {
-        console.log(e.target.dataset.categoryId);
+        let categoryId = e.target.dataset.categoryId;
+        let clickedButton = e.target;
+        applyFilter(categoryId, clickedButton);
       });
       categories.appendChild(button);
     });
   });
+
+function applyFilter(categoryId, clickedButton) {
+  //Etape 1, j'ajoute selected sur le bouton et je l'enlève sur les autres
+  const allButtons = document.querySelectorAll(".filter-btn");
+  allButtons.forEach((button) => {
+    button.classList.remove("selected");
+  });
+  clickedButton.classList.add("selected");
+
+  //Etape 2, je filtre
+  const figures = document.querySelectorAll(".project");
+  figures.forEach((figure) => {
+    if (figure.dataset.category === categoryId) {
+      figure.style.display = "block";
+    } else {
+      figure.style.display = "none";
+    }
+    //Etape 3,je traite le all
+    if (categoryId === "all") {
+      figure.style.display = "block";
+    }
+  });
+}
 
 // Supprimer les travaux existants du HTML
 const gallery = document.querySelector(".gallery");
@@ -41,6 +69,9 @@ fetch("http://localhost:5678/api/works")
       const figure = document.createElement("figure");
       const img = document.createElement("img");
       const figcaption = document.createElement("figcaption");
+
+      figure.dataset.category = work.categoryId;
+      figure.classList.add("project");
 
       img.src = work.imageUrl;
       img.alt = work.title;
