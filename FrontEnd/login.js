@@ -24,7 +24,9 @@ function loginUser() {
       if (response.status === 200) {
         return response.json();
       } else {
-        // Je le coderai plus tard je veux d'abord voir si ça fonctionne avec le login ok
+        // Afficher le message d'erreur
+        const loginError = document.getElementById("login_error");
+        loginError.style.display = "block";
       }
     })
     .then((data) => {
