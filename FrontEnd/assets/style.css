@@ -205,6 +205,21 @@ li:hover {
 	margin-bottom: 20px;
 	display: none;
 }
+/* Ajout du CSS pour le bandeau du Mode édition */
+.fa-regular {
+    margin-right: 10px;
+}
+.editing_banner {
+    background-color: black;
+    color: white;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#editing {
+	margin-top: 0;
+}
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
