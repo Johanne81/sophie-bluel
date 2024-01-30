@@ -121,6 +121,15 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+.my_projects {
+	display: flex;
+	justify-content: center;
+}
+.edit_button {
+	display: flex;
+	margin-top: 10px;
+	margin-left: 20px;
+}
 /* Ajout du CSS pour les filtres*/
 .categories {
 	display: flex;
@@ -183,6 +192,12 @@ li:hover {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 /* Ajout du CSS pour le login*/
+.login_link {
+	display: block;
+}
+#loginLink {
+	font-weight: 600;
+}
 #login {
 	display: flex;
 	flex-direction: column;
@@ -216,9 +231,14 @@ li:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+	display: none;
 }
 #editing {
 	margin-top: 0;
+}
+/* Ajout du CSS pour le logout*/
+.logout_link {
+	display: none;
 }
 input[type="submit"]{
 	font-family: 'Syne';

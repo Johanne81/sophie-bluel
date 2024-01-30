@@ -31,9 +31,11 @@ function loginUser() {
     })
     .then((data) => {
       if (data) {
-        //Si login OK
+        // Si login OK
         // Stockage du token dans le session storage
         sessionStorage.setItem("token", data.token);
+        // Stockage de l'état de connexion dans le session storage
+        sessionStorage.setItem("isLoggedIn", true);
         // Redirection vers la page d'accueil
         window.location.href = "index.html";
       }
