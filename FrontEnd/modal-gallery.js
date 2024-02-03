@@ -1,22 +1,39 @@
 const modal = document.getElementById("modal1");
 const closeButton = document.querySelector(".close-button");
-// editButton is declared in admin.js
+const galleryContainer = document.querySelector(".gallery-container");
+// editButton est déclaré dans admin.js
 
-// Ouvrir la modale lorsqu'on clique sur "modifier"
+// Ouvrir la modale lorsqu'on clique sur "modifier" et récupérer des travaux
 editButton.addEventListener("click", () => {
-  console.log("ok");
+  fetch("http://localhost:5678/api/works")
+    .then((reponse) => reponse.json())
+    .then((worksData) => {
+      // Ajouter les éléments récupérés à la galerie
+      worksData.forEach((work) => {
+        const img = document.createElement("img");
+        img.src = work.imageUrl;
+        img.alt = work.title;
+        img.style.height = "80px";
+        const blockImg = document.createElement("div");
+        blockImg.classList.add("block-img");
+        const trash = document.createElement("i");
+        trash.classList.add("fa-solid", "fa-trash-can");
+        blockImg.appendChild(img);
+        blockImg.appendChild(trash);
+        galleryContainer.appendChild(blockImg);
+      });
+    });
   modal.style.display = "block";
 });
 
-// Ferme la modale lorsqu'on clique sur la croix
+// Fermer la modale lorsqu'on clique sur la croix
 closeButton.addEventListener("click", () => {
+  galleryContainer.innerHTML = "";
   modal.style.display = "none";
 });
 
-// Ferme la modale lorsqu'on clique en dehors de la modale
-window.addEventListener("click", (event) => {
-  console.log(event.target);
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
+// Fermer la modale lorsqu'on clique en dehors de la modale
+modal.addEventListener("click", () => {
+  galleryContainer.innerHTML = "";
+  modal.style.display = "none";
 });
