@@ -13,7 +13,6 @@ editButton.addEventListener("click", () => {
         const img = document.createElement("img");
         img.src = work.imageUrl;
         img.alt = work.title;
-        img.style.height = "80px";
         const blockImg = document.createElement("div");
         blockImg.classList.add("block-img");
         const trash = document.createElement("i");
