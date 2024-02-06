@@ -6,7 +6,7 @@ const galleryContainer = document.querySelector(".gallery-container");
 // Ouvrir la modale lorsqu'on clique sur "modifier" et récupérer des travaux
 editButton.addEventListener("click", () => {
   fetch("http://localhost:5678/api/works")
-    .then((reponse) => reponse.json())
+    .then((response) => response.json())
     .then((worksData) => {
       // Ajouter les éléments récupérés à la galerie
       worksData.forEach((work) => {
@@ -20,10 +20,36 @@ editButton.addEventListener("click", () => {
         blockImg.appendChild(img);
         blockImg.appendChild(trash);
         galleryContainer.appendChild(blockImg);
+        // Ecoute du clic sur la corbeille et suppression des travaux
+        trash.addEventListener("click", (e) => {
+          const workId = work.id;
+          deleteWork(workId, e);
+        });
       });
     });
   modal.style.display = "block";
 });
+
+// Supprimer les travaux via l'API
+function deleteWork(workId, e) {
+  fetch(`http://localhost:5678/api/works/${workId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        e.target.parentElement.remove();
+      } else {
+        // Gérer les erreurs de suppression
+        console.error("Erreur lors de la suppression du travail");
+      }
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la suppression du travail :", error);
+    });
+}
 
 // Fermer la modale lorsqu'on clique sur la croix
 closeButton.addEventListener("click", () => {
