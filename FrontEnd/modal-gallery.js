@@ -1,10 +1,9 @@
 const modal = document.getElementById("modal1");
-const closeButton = document.querySelector(".close-button");
+const closeButton1 = document.querySelector(".close-button1");
 const galleryContainer = document.querySelector(".gallery-container");
 // editButton est déclaré dans admin.js
 
-// Ouvrir la modale lorsqu'on clique sur "modifier" et récupérer des travaux
-editButton.addEventListener("click", () => {
+function loadWorks() {
   fetch("http://localhost:5678/api/works")
     .then((response) => response.json())
     .then((worksData) => {
@@ -27,6 +26,11 @@ editButton.addEventListener("click", () => {
         });
       });
     });
+}
+
+// Ouvrir la modale lorsqu'on clique sur "modifier" et charger les travaux
+editButton.addEventListener("click", () => {
+  loadWorks();
   modal.style.display = "block";
 });
 
@@ -52,7 +56,7 @@ function deleteWork(workId, e) {
 }
 
 // Fermer la modale lorsqu'on clique sur la croix
-closeButton.addEventListener("click", () => {
+closeButton1.addEventListener("click", () => {
   galleryContainer.innerHTML = "";
   modal.style.display = "none";
 });
