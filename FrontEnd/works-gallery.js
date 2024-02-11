@@ -18,7 +18,7 @@ fetch("http://localhost:5678/api/categories")
 
     categories.appendChild(allButton);
 
-    // Créer les bouttons pour chaque catégorie
+    // Créer les boutons pour chaque catégorie
     categoriesData.forEach((category) => {
       const button = document.createElement("div");
       button.textContent = category.name;

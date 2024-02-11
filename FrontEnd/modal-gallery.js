@@ -21,6 +21,7 @@ function loadWorks() {
         galleryContainer.appendChild(blockImg);
         // Ecoute du clic sur la corbeille et suppression des travaux
         trash.addEventListener("click", (e) => {
+          e.stopPropagation(); // Arrêter la propagation de l'événement
           const workId = work.id;
           deleteWork(workId, e);
         });
