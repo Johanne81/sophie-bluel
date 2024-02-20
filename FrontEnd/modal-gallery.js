@@ -54,6 +54,7 @@ function deleteWork(workId, e) {
     .catch((error) => {
       console.error("Erreur lors de la suppression du travail :", error);
     });
+  refreshWorks();
 }
 
 // Fermer la modale lorsqu'on clique sur la croix

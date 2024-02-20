@@ -17,6 +17,7 @@ arrowLeft.addEventListener("click", () => {
   modal2.style.display = "none";
   modal1.style.display = "block";
   loadWorks();
+  submitButton.style.backgroundColor = "";
 });
 
 // Fermer la modale lorsqu'on clique sur la croix
@@ -104,7 +105,7 @@ async function sendData(formData) {
     if (response.status === 400) {
       errorMessage.textContent = "Le formulaire n'est pas correctement rempli.";
     } else {
-      // Afficher un message d'erreur général
+      // Afficher un message d'erreur, autre
       errorMessage.textContent =
         "Une erreur s'est produite lors de l'envoi du formulaire.";
     }
@@ -113,11 +114,16 @@ async function sendData(formData) {
     // Afficher un message de succès à l'utilisateur
     errorMessage.style.display = "none";
     alert("Formulaire envoyé avec succès!");
+    submitButton.style.backgroundColor = " #1D6154";
+
     // Réinitialiser les champs de formulaire
     form.reset();
     inputPicture.value = "";
     picturePreview.src = "";
     pictureSelection.style.display = "block";
     picturePreview.style.display = "none";
+
+    // Acutaliser les travaux
+    refreshWorks();
   }
 }

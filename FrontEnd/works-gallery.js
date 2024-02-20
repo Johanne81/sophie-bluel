@@ -4,7 +4,7 @@ const categories = document.querySelector(".categories");
 fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categoriesData) => {
-    // Créer le boutton "Tous"
+    // Créer le bouton "Tous"
     const allButton = document.createElement("div");
     allButton.textContent = "Tous";
     allButton.dataset.categoryId = "all";
@@ -31,6 +31,8 @@ fetch("http://localhost:5678/api/categories")
       });
       categories.appendChild(button);
     });
+    // Rafraichir les travaux
+    refreshWorks();
   });
 
 function applyFilter(categoryId, clickedButton) {
@@ -55,30 +57,31 @@ function applyFilter(categoryId, clickedButton) {
     }
   });
 }
+function refreshWorks() {
+  // Supprimer les travaux existants du HTML
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
 
-// Supprimer les travaux existants du HTML
-const gallery = document.querySelector(".gallery");
-gallery.innerHTML = "";
+  // Récupération des travaux sur l'API
+  fetch("http://localhost:5678/api/works")
+    .then((reponse) => reponse.json())
+    .then((worksData) => {
+      // Ajouter les éléments récupérés à la galerie
+      worksData.forEach((work) => {
+        const figure = document.createElement("figure");
+        const img = document.createElement("img");
+        const figcaption = document.createElement("figcaption");
 
-// Récupération des travaux sur l'API
-fetch("http://localhost:5678/api/works")
-  .then((reponse) => reponse.json())
-  .then((worksData) => {
-    // Ajouter les éléments récupérés à la galerie
-    worksData.forEach((work) => {
-      const figure = document.createElement("figure");
-      const img = document.createElement("img");
-      const figcaption = document.createElement("figcaption");
+        figure.dataset.category = work.categoryId;
+        figure.classList.add("project");
 
-      figure.dataset.category = work.categoryId;
-      figure.classList.add("project");
+        img.src = work.imageUrl;
+        img.alt = work.title;
+        figcaption.textContent = work.title;
 
-      img.src = work.imageUrl;
-      img.alt = work.title;
-      figcaption.textContent = work.title;
-
-      figure.appendChild(img);
-      figure.appendChild(figcaption);
-      gallery.appendChild(figure);
+        figure.appendChild(img);
+        figure.appendChild(figcaption);
+        gallery.appendChild(figure);
+      });
     });
-  });
+}
