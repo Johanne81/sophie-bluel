@@ -43,7 +43,7 @@ inputPicture.addEventListener("change", () => {
     return;
   }
   // Vérifier la taille du fichier
-  const maxSize = 4 * 1024 * 1024; // 4 Mo
+  const maxSize = 4 * 1024 * 1024;
   if (file.size > maxSize) {
     alert("La taille du fichier ne doit pas dépasser 4 Mo.");
     return;
@@ -58,3 +58,51 @@ inputPicture.addEventListener("change", () => {
     reader.readAsDataURL(file);
   }
 });
+
+const form = document.querySelector("#form-new-photo");
+const submitButton = document.querySelector("#form-submit-photo");
+
+//Envoyer le formulaire
+submitButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  // Récupérer les données saisies dans le formulaire
+  const formData = new FormData(form);
+  sendData(formData);
+});
+
+// Fonction pour envoyer le formulaire
+async function sendData(formData) {
+  const response = await fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+    body: formData,
+  });
+
+  // Afficher le statut de la réponse dans la console
+  console.log("Réponse du serveur :", response.status);
+
+  const errorMessage = document.querySelector("#form-error-message");
+  if (!response.ok) {
+    // Afficher un message d'erreur Bad Request
+    if (response.status === 400) {
+      errorMessage.textContent = "Le formulaire n'est pas correctement rempli.";
+    } else {
+      // Afficher un message d'erreur général
+      errorMessage.textContent =
+        "Une erreur s'est produite lors de l'envoi du formulaire.";
+    }
+    errorMessage.style.display = "flex";
+  } else {
+    // Afficher un message de succès à l'utilisateur
+    errorMessage.style.display = "none";
+    alert("Formulaire envoyé avec succès!");
+    // Réinitialiser les champs de formulaire
+    form.reset();
+    inputPicture.value = "";
+    picturePreview.src = "";
+    pictureSelection.style.display = "block";
+    picturePreview.style.display = "none";
+  }
+}

@@ -12,3 +12,18 @@ if (isLoggedIn) {
   blockCategories.style.display = "none";
   editButton.style.display = "flex";
 }
+
+const logoutButton = document.querySelector("#logout_button");
+
+logoutButton.addEventListener("click", function () {
+  logoutUser();
+});
+
+// Fonction de déconnexion
+function logoutUser() {
+  // Supprimer le token et l'état de connexion du sessionStorage
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("isLoggedIn");
+  // Redirection vers la page d'accueil
+  window.location.href = "index.html";
+}
