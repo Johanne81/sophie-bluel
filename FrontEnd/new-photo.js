@@ -4,7 +4,6 @@ const addButton2 = document.querySelector(".add_photo_button2");
 const inputPicture = document.querySelector("#input-picture");
 const pictureSelection = document.querySelector(".picture-selection");
 const picturePreview = document.querySelector("#picture-preview");
-const selectCategory = document.querySelector("#select-category");
 const closeButton2 = document.querySelector(".close-button2");
 
 // Ouvrir la modal2 lorsqu'on clique sur "Ajouter une photo"
@@ -58,6 +57,22 @@ inputPicture.addEventListener("change", () => {
     reader.readAsDataURL(file);
   }
 });
+
+// Afficher dynamiquement les catégories dans le formulaire
+const selectCategory = document.querySelector("#select-category");
+
+// Récupérer les catégories depuis l'API
+fetch("http://localhost:5678/api/categories")
+  .then((response) => response.json())
+  .then((categoriesData) => {
+    categoriesData.forEach((category) => {
+      // Créer une nouvelle option
+      let option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      selectCategory.appendChild(option);
+    });
+  });
 
 const form = document.querySelector("#form-new-photo");
 const submitButton = document.querySelector("#form-submit-photo");
