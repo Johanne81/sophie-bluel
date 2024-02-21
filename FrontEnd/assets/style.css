@@ -409,6 +409,10 @@ cursor: pointer;
 	font-family: "Syne";
 	font-size: 14px;
 }
+/*.button-submit:enabled {
+    background-color: #1D6154;
+    cursor: pointer; 
+}*/
 #picture-preview {
 	display: none;
 	max-width: 129px;

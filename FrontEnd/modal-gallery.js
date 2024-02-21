@@ -1,6 +1,7 @@
-const modal = document.getElementById("modal1");
+const modal1 = document.querySelector("#modal1");
 const closeButton1 = document.querySelector(".close-button1");
 const galleryContainer = document.querySelector(".gallery-container");
+const photoTitle = document.querySelector("#photo-title");
 // editButton est déclaré dans admin.js
 
 function loadWorks() {
@@ -32,7 +33,7 @@ function loadWorks() {
 // Ouvrir la modale lorsqu'on clique sur "modifier" et charger les travaux
 editButton.addEventListener("click", () => {
   loadWorks();
-  modal.style.display = "block";
+  modal1.style.display = "block";
 });
 
 // Supprimer les travaux via l'API
@@ -60,11 +61,14 @@ function deleteWork(workId, e) {
 // Fermer la modale lorsqu'on clique sur la croix
 closeButton1.addEventListener("click", () => {
   galleryContainer.innerHTML = "";
-  modal.style.display = "none";
+  modal1.style.display = "none";
 });
 
-// Fermer la modale lorsqu'on clique en dehors de la modale
-modal.addEventListener("click", () => {
-  galleryContainer.innerHTML = "";
-  modal.style.display = "none";
+// Fermer la modale lorsqu'on clique en dehors de la modale et ne pas fermer quand on clique à l'intérieur
+const modalWrapper = document.querySelector(".modal_wrapper");
+modal1.addEventListener("click", (e) => {
+  if (!modalWrapper.contains(e.target)) {
+    galleryContainer.innerHTML = "";
+    modal1.style.display = "none";
+  }
 });

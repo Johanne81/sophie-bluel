@@ -1,10 +1,14 @@
 const modal2 = document.querySelector("#modal2");
+const modalWrapper2 = document.querySelector("#modal-wrapper2");
 const addButton = document.querySelector(".add_photo_button");
 const addButton2 = document.querySelector(".add_photo_button2");
 const inputPicture = document.querySelector("#input-picture");
 const pictureSelection = document.querySelector(".picture-selection");
 const picturePreview = document.querySelector("#picture-preview");
 const closeButton2 = document.querySelector(".close-button2");
+const formNewPhoto = document.querySelector("#form-new-photo");
+const modalHeader = document.querySelector(".modal-header");
+const modal2Input = document.querySelector(".modal2-input");
 
 // Ouvrir la modal2 lorsqu'on clique sur "Ajouter une photo"
 addButton.addEventListener("click", () => {
@@ -17,12 +21,18 @@ arrowLeft.addEventListener("click", () => {
   modal2.style.display = "none";
   modal1.style.display = "block";
   loadWorks();
-  submitButton.style.backgroundColor = "";
 });
 
 // Fermer la modale lorsqu'on clique sur la croix
 closeButton2.addEventListener("click", () => {
   modal2.style.display = "none";
+});
+
+// Fermer la modale lorsqu'on clique en dehors de la modale et ne pas fermer lorsqu'on clique à l'intérieur
+modal2.addEventListener("click", (e) => {
+  if (!modalWrapper2.contains(e.target)) {
+    modal2.style.display = "none";
+  }
 });
 
 // Ouvrir la boite de téléchargement de la nouvelle image
@@ -62,7 +72,7 @@ inputPicture.addEventListener("change", () => {
 // Afficher dynamiquement les catégories dans le formulaire
 const selectCategory = document.querySelector("#select-category");
 
-// Récupérer les catégories depuis l'API
+// Récupérer les catégories depuis l'API et créer les options
 fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categoriesData) => {
@@ -114,7 +124,7 @@ async function sendData(formData) {
     // Afficher un message de succès à l'utilisateur
     errorMessage.style.display = "none";
     alert("Formulaire envoyé avec succès!");
-    submitButton.style.backgroundColor = " #1D6154";
+    //submitButton.style.backgroundColor = " #1D6154";
 
     // Réinitialiser les champs de formulaire
     form.reset();
