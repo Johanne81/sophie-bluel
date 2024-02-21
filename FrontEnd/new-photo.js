@@ -6,9 +6,9 @@ const inputPicture = document.querySelector("#input-picture");
 const pictureSelection = document.querySelector(".picture-selection");
 const picturePreview = document.querySelector("#picture-preview");
 const closeButton2 = document.querySelector(".close-button2");
-const formNewPhoto = document.querySelector("#form-new-photo");
-const modalHeader = document.querySelector(".modal-header");
-const modal2Input = document.querySelector(".modal2-input");
+const inputTitle = document.querySelector("#title");
+const form = document.querySelector("#form-new-photo");
+const submitButton = document.querySelector("#form-submit-photo");
 
 // Ouvrir la modal2 lorsqu'on clique sur "Ajouter une photo"
 addButton.addEventListener("click", () => {
@@ -20,6 +20,7 @@ const arrowLeft = document.querySelector(".fa-arrow-left");
 arrowLeft.addEventListener("click", () => {
   modal2.style.display = "none";
   modal1.style.display = "block";
+  galleryContainer.innerHTML = "";
   loadWorks();
 });
 
@@ -85,10 +86,24 @@ fetch("http://localhost:5678/api/categories")
     });
   });
 
-const form = document.querySelector("#form-new-photo");
-const submitButton = document.querySelector("#form-submit-photo");
+// Mettre à jour du bouton d'envoi lorsque tous les champs sont remplis
+function updateSubmitButton() {
+  const pictureLoaded = inputPicture.value !== "";
+  const formFilled = inputTitle.value !== "";
 
-//Envoyer le formulaire
+  if (pictureLoaded && formFilled) {
+    submitButton.style.backgroundColor = "#1D6154";
+    submitButton.style.cursor = "pointer";
+  } else {
+    submitButton.style.backgroundColor = "#A7A7A7";
+    submitButton.style.cursor = "default";
+  }
+}
+
+inputPicture.addEventListener("change", updateSubmitButton);
+inputTitle.addEventListener("change", updateSubmitButton);
+
+// Envoyer le formulaire
 submitButton.addEventListener("click", (e) => {
   e.preventDefault();
   // Récupérer les données saisies dans le formulaire
@@ -115,7 +130,7 @@ async function sendData(formData) {
     if (response.status === 400) {
       errorMessage.textContent = "Le formulaire n'est pas correctement rempli.";
     } else {
-      // Afficher un message d'erreur, autre
+      // Afficher un message d'erreur + général
       errorMessage.textContent =
         "Une erreur s'est produite lors de l'envoi du formulaire.";
     }
@@ -124,7 +139,7 @@ async function sendData(formData) {
     // Afficher un message de succès à l'utilisateur
     errorMessage.style.display = "none";
     alert("Formulaire envoyé avec succès!");
-    //submitButton.style.backgroundColor = " #1D6154";
+    submitButton.style.backgroundColor = " #A7A7A7";
 
     // Réinitialiser les champs de formulaire
     form.reset();
@@ -133,7 +148,7 @@ async function sendData(formData) {
     pictureSelection.style.display = "block";
     picturePreview.style.display = "none";
 
-    // Acutaliser les travaux
+    // Actualiser les travaux
     refreshWorks();
   }
 }
