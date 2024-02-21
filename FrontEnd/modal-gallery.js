@@ -65,7 +65,7 @@ closeButton1.addEventListener("click", () => {
 });
 
 // Fermer la modale lorsqu'on clique en dehors de la modale et ne pas fermer quand on clique à l'intérieur
-const modalWrapper = document.querySelector(".modal_wrapper");
+const modalWrapper = document.querySelector(".modal-wrapper");
 modal1.addEventListener("click", (e) => {
   if (!modalWrapper.contains(e.target)) {
     galleryContainer.innerHTML = "";

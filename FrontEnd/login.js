@@ -1,4 +1,4 @@
-const loginButton = document.querySelector("#se_connecter");
+const loginButton = document.querySelector("#se-connecter");
 
 loginButton.addEventListener("click", function () {
   loginUser();
@@ -7,8 +7,8 @@ loginButton.addEventListener("click", function () {
 function loginUser() {
   // Récupérer les valeurs saisies dans le formulaire
   let user = {
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,
+    email: document.querySelector("#email").value,
+    password: document.querySelector("#password").value,
   };
 
   // Envoi de la requête POST à l'API
@@ -25,7 +25,7 @@ function loginUser() {
         return response.json();
       } else {
         // Afficher le message d'erreur
-        const loginError = document.getElementById("login_error");
+        const loginError = document.getElementById("login-error");
         loginError.style.display = "block";
       }
     })
