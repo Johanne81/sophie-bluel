@@ -1,22 +1,25 @@
+// Constantes
 const modal2 = document.querySelector("#modal2");
 const modalWrapper2 = document.querySelector("#modal-wrapper2");
 const addButton = document.querySelector(".add-photo-button");
 const addButton2 = document.querySelector(".add-photo-button2");
+const form = document.querySelector("#form-new-photo");
 const inputPicture = document.querySelector("#input-picture");
 const pictureSelection = document.querySelector(".picture-selection");
 const picturePreview = document.querySelector("#picture-preview");
-const closeButton2 = document.querySelector(".close-button2");
 const inputTitle = document.querySelector("#title");
-const form = document.querySelector("#form-new-photo");
+const selectCategory = document.querySelector("#select-category");
 const submitButton = document.querySelector("#form-submit-photo");
+const closeButton2 = document.querySelector(".close-button2");
+const arrowLeft = document.querySelector(".fa-arrow-left");
 
 // Ouvrir la modal2 lorsqu'on clique sur "Ajouter une photo"
 addButton.addEventListener("click", () => {
   modal2.style.display = "block";
+  modal1.style.display = "none";
 });
 
 // Revenir sur la modal1 au clic sur la flèche gauche
-const arrowLeft = document.querySelector(".fa-arrow-left");
 arrowLeft.addEventListener("click", () => {
   modal2.style.display = "none";
   modal1.style.display = "block";
@@ -53,6 +56,7 @@ inputPicture.addEventListener("change", () => {
     alert("Seuls les fichiers JPG et PNG sont autorisés.");
     return;
   }
+
   // Vérifier la taille du fichier
   const maxSize = 4 * 1024 * 1024;
   if (file.size > maxSize) {
@@ -70,23 +74,7 @@ inputPicture.addEventListener("change", () => {
   }
 });
 
-// Afficher dynamiquement les catégories dans le formulaire
-const selectCategory = document.querySelector("#select-category");
-
-// Récupérer les catégories depuis l'API et créer les options
-fetch("http://localhost:5678/api/categories")
-  .then((response) => response.json())
-  .then((categoriesData) => {
-    categoriesData.forEach((category) => {
-      // Créer une nouvelle option
-      let option = document.createElement("option");
-      option.value = category.id;
-      option.textContent = category.name;
-      selectCategory.appendChild(option);
-    });
-  });
-
-// Mettre à jour du bouton d'envoi lorsque tous les champs sont remplis
+// Mettre à jour le bouton d'envoi lorsque tous les champs sont remplis
 function updateSubmitButton() {
   const pictureLoaded = inputPicture.value !== "";
   const formFilled = inputTitle.value !== "";
@@ -102,6 +90,19 @@ function updateSubmitButton() {
 
 inputPicture.addEventListener("change", updateSubmitButton);
 inputTitle.addEventListener("change", updateSubmitButton);
+
+// Récupérer les catégories depuis l'API et créer les options
+fetch("http://localhost:5678/api/categories")
+  .then((response) => response.json())
+  .then((categoriesData) => {
+    categoriesData.forEach((category) => {
+      // Créer une nouvelle option
+      let option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      selectCategory.appendChild(option);
+    });
+  });
 
 // Envoyer le formulaire
 submitButton.addEventListener("click", (e) => {

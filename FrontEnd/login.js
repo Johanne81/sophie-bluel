@@ -25,19 +25,17 @@ function loginUser() {
         return response.json();
       } else {
         // Afficher le message d'erreur
-        const loginError = document.getElementById("login-error");
+        const loginError = document.querySelector("#login-error");
         loginError.style.display = "block";
       }
     })
     .then((data) => {
-      if (data) {
-        // Si login OK
-        // Stockage du token dans le session storage
-        sessionStorage.setItem("token", data.token);
-        // Stockage de l'état de connexion dans le session storage
-        sessionStorage.setItem("isLoggedIn", true);
-        // Redirection vers la page d'accueil
-        window.location.href = "index.html";
-      }
+      // éxécuté que si la réponse est un succés
+      // Stockage du token dans le session storage
+      sessionStorage.setItem("token", data.token);
+      // Stockage de l'état de connexion dans le session storage
+      sessionStorage.setItem("isLoggedIn", true);
+      // Redirection vers la page d'accueil
+      window.location.href = "index.html";
     });
 }

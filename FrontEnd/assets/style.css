@@ -99,6 +99,7 @@ li:hover {
 #introduction {
 	display: flex;
 	align-items: center;
+	margin-bottom: 100px
 }
 #introduction figure {
 	flex: 1
@@ -117,13 +118,11 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
+/* Section Porfolio */
 .my-projects {
 	display: flex;
 	justify-content: center;
+	margin: 50px;
 }
 .edit-button {
 	display: none;
@@ -131,7 +130,7 @@ li:hover {
 	margin-left: 20px;
 	cursor: pointer;
 }
-/* Ajout du CSS pour les filtres*/
+/* Portfolio : Les filtres */
 .categories {
 	display: flex;
 	justify-content: center;
@@ -162,6 +161,7 @@ li:hover {
 .gallery img {
 	width: 100%;
 }
+/* Section Contact */
 #contact {
 	width: 50%;
 	margin: auto;
@@ -192,7 +192,7 @@ li:hover {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-/* Ajout du CSS pour le login*/
+/* Login */
 .login-link {
 	display: block;
 }
@@ -221,7 +221,11 @@ li:hover {
 	margin-bottom: 20px;
 	display: none;
 }
-/* Ajout du CSS pour le bandeau du Mode édition */
+/* Logout */
+.logout-link {
+	display: none;
+}
+/* Bandeau du Mode édition */
 .fa-regular {
     margin-right: 10px;
 }
@@ -237,11 +241,8 @@ li:hover {
 #editing {
 	margin-top: 0;
 }
-/* Ajout du CSS pour le logout */
-.logout-link {
-	display: none;
-}
-/* Ajout du CSS pour les modales */
+
+/* Les modales */
 .modal {
 	display: none;
 	position: fixed;
@@ -270,22 +271,6 @@ li:hover {
 	font-size: 24px;
 	cursor: pointer;
 }
-.fa-trash-can {
-	display: flex;
-	position: relative;
-	justify-content: center;
-	align-items: center;
-	background-color: black;
-	color: white;
-	border-radius: 2px;
-	width: 17px;
-	height: 17px;
-	font-size: 9px;
-	top: 7px;
-	right: 23px;
-	cursor: pointer;
-}
-/* Ajout du CSS pour la modal1 */
 .modal-wrapper h3{
 	justify-content: center;
 	display: flex;
@@ -293,6 +278,8 @@ li:hover {
 	margin-top: 60px;
 	margin-bottom: 20px;
 }
+
+/* Modal1 */
 .gallery-container {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
@@ -308,6 +295,21 @@ li:hover {
 .block-img img {
 	width: 76.61px;
 	height: 102.57px;
+}
+.fa-trash-can {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	color: white;
+	border-radius: 2px;
+	width: 17px;
+	height: 17px;
+	font-size: 9px;
+	top: 7px;
+	right: 23px;
+	cursor: pointer;
 }
 .add-photo-button {
 	display: block;
@@ -327,14 +329,11 @@ li:hover {
 	width: 470px;
 	margin-left: 66px;
 }
-/* Ajout du CSS pour la modal2 */
+
+/* Modal2 */
 .modal-header {
 	padding: 10px;
 }
-.modal-header > * {
-	flex: 1;
-	text-align: center;
-  }
 .modal-header i {
 text-align: left;
 font-size: 21px;
@@ -429,7 +428,6 @@ cursor: pointer;
 	width: 420px;
 	margin-top: 47px;
 }
-
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -440,6 +438,7 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
+/* Footer */
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
