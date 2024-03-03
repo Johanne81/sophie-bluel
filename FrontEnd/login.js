@@ -1,6 +1,6 @@
 const loginButton = document.querySelector("#se-connecter");
 
-loginButton.addEventListener("click", function () {
+loginButton.addEventListener("click", () => {
   loginUser();
 });
 

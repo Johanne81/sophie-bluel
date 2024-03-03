@@ -12,6 +12,7 @@ const selectCategory = document.querySelector("#select-category");
 const submitButton = document.querySelector("#form-submit-photo");
 const closeButton2 = document.querySelector(".close-button2");
 const arrowLeft = document.querySelector(".fa-arrow-left");
+const errorMessage = document.querySelector("#form-error-message");
 
 // Ouvrir la modal2 lorsqu'on clique sur "Ajouter une photo"
 addButton.addEventListener("click", () => {
@@ -24,6 +25,7 @@ arrowLeft.addEventListener("click", () => {
   modal2.style.display = "none";
   modal1.style.display = "block";
   galleryContainer.innerHTML = "";
+  resetForms();
   loadWorks();
 });
 
@@ -87,7 +89,6 @@ function updateSubmitButton() {
     submitButton.style.cursor = "default";
   }
 }
-
 inputPicture.addEventListener("change", updateSubmitButton);
 inputTitle.addEventListener("change", updateSubmitButton);
 
@@ -104,14 +105,6 @@ fetch("http://localhost:5678/api/categories")
     });
   });
 
-// Envoyer le formulaire
-submitButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  // Récupérer les données saisies dans le formulaire
-  const formData = new FormData(form);
-  sendData(formData);
-});
-
 // Fonction pour envoyer le formulaire
 async function sendData(formData) {
   const response = await fetch("http://localhost:5678/api/works", {
@@ -125,31 +118,47 @@ async function sendData(formData) {
   // Afficher le statut de la réponse dans la console
   console.log("Réponse du serveur :", response.status);
 
-  const errorMessage = document.querySelector("#form-error-message");
   if (!response.ok) {
+    errorMessage.style.display = "flex";
     // Afficher un message d'erreur Bad Request
     if (response.status === 400) {
       errorMessage.textContent = "Le formulaire n'est pas correctement rempli.";
+      inputTitle.addEventListener("click", () => {
+        errorMessage.textContent = "";
+      });
     } else {
       // Afficher un message d'erreur + général
       errorMessage.textContent =
         "Une erreur s'est produite lors de l'envoi du formulaire.";
+      inputPicture.addEventListener("click", () => {
+        errorMessage.textContent = "";
+      });
     }
-    errorMessage.style.display = "flex";
   } else {
     // Afficher un message de succès à l'utilisateur
     errorMessage.style.display = "none";
     alert("Formulaire envoyé avec succès!");
-    submitButton.style.backgroundColor = " #A7A7A7";
 
     // Réinitialiser les champs de formulaire
-    form.reset();
-    inputPicture.value = "";
-    picturePreview.src = "";
-    pictureSelection.style.display = "block";
-    picturePreview.style.display = "none";
-
+    resetForms();
+    // Réinitialiser le bouton d'envoi
+    updateSubmitButton();
     // Actualiser les travaux
     refreshWorks();
   }
 }
+// Réinitialiser les champs de formulaire
+function resetForms() {
+  form.reset();
+  inputPicture.value = "";
+  picturePreview.src = "";
+  pictureSelection.style.display = "block";
+  picturePreview.style.display = "none";
+}
+// Ajouter un eventListener sur le bouton "submit"
+submitButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  // Récupérer les données saisies dans le formulaire et les envoyer
+  const formData = new FormData(form);
+  sendData(formData);
+});

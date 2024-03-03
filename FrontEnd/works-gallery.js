@@ -66,7 +66,7 @@ fetch("http://localhost:5678/api/categories")
 
 // Fonction pour appliquer le filtre
 function applyFilter(categoryId, clickedButton) {
-  //Etape 1, j'ajoute selected sur le bouton et je l'enlève sur les autres
+  //Etape 1, j'enlève selected sur tous les boutons et je l'ajoute sur le bouton cliqué
   const allButtons = document.querySelectorAll(".filter-btn");
   allButtons.forEach((button) => {
     button.classList.remove("selected");

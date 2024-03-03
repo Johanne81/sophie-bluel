@@ -15,7 +15,7 @@ if (isLoggedIn) {
 
 const logoutButton = document.querySelector("#logout-button");
 
-logoutButton.addEventListener("click", function () {
+logoutButton.addEventListener("click", () => {
   logoutUser();
 });
 
